@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Signal Cartel",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Signal Cartel",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "Signal-Cartel",
+  "description": "undergrid operator: survive the police, make money"
+}
