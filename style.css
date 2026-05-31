@@ -1,0 +1,520 @@
+:root {
+    --bg-color: #05050a;
+    --neon-blue: #00f2ff;
+    --neon-pink: #ff00ea;
+    --neon-green: #00ff66;
+    --neon-red: #ff0033;
+    --text-color: #e0e0ff;
+    --border-glow: 0 0 10px var(--neon-blue);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
+}
+
+#game-container {
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    background-color: var(--bg-color);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 30px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-blue);
+    box-shadow: var(--border-glow);
+    pointer-events: auto;
+    transition: all 0.3s;
+}
+
+/* Mobile Adjustments */
+#game-container.mobile-mode #hud {
+    top: 10px;
+    left: 10px;
+    gap: 50px;
+    padding: 25px;
+    border-width: 2px;
+}
+
+#game-container.mobile-mode .stat {
+    font-size: 1.8rem;
+}
+
+#game-container.mobile-mode .build-btn {
+    padding: 20px 40px;
+    font-size: 1.4rem;
+    border-width: 2px;
+}
+
+#game-container.mobile-mode #build-menu {
+    bottom: 40px;
+    gap: 20px;
+}
+
+#game-container.mobile-mode #news-ticker {
+    top: 10px;
+    right: 10px;
+    width: 450px;
+    height: 90px;
+}
+
+#game-container.mobile-mode #news-content {
+    font-size: 1.3rem;
+}
+
+#replay-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 20, 0.98);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#replay-canvas {
+    width: 1280px;
+    height: 720px;
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+    background: #000;
+}
+
+#replay-controls {
+    margin-top: 20px;
+}
+
+#replay-controls button {
+    padding: 10px 40px;
+    background: transparent;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+#replay-controls button:hover {
+    background: var(--neon-green);
+    color: black;
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+#game-container.mobile-mode #replay-canvas {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
+
+#game-container.mobile-mode #replay-controls button {
+    padding: 20px 60px;
+    font-size: 1.5rem;
+}
+
+.stat {
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#ingame-menu-btn {
+    margin-left: 20px;
+    padding: 5px 15px;
+    background: transparent;
+    border: 1px solid var(--neon-pink);
+    color: var(--neon-pink);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+#ingame-menu-btn:hover {
+    background: var(--neon-pink);
+    color: black;
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+#hud-map-btn {
+    margin-left: 20px;
+    padding: 5px 15px;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+#hud-map-btn:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+#game-container.mobile-mode #ingame-menu-btn {
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    border-width: 2px;
+}
+
+#news-ticker {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 350px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--neon-green);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+#news-label {
+    font-size: 0.7rem;
+    color: var(--neon-green);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+#news-content {
+    font-size: 0.9rem;
+    color: #fff;
+    white-space: nowrap;
+    animation: ticker 15s linear infinite;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-200%); }
+}
+
+#build-menu {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--neon-pink);
+    pointer-events: auto;
+}
+
+.build-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.build-btn:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.menu-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(5, 5, 20, 0.98);
+    border: 2px solid var(--neon-blue);
+    padding: 60px;
+    text-align: center;
+    box-shadow: 0 0 40px var(--neon-blue);
+    z-index: 200;
+    min-width: 400px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.menu-buttons button {
+    padding: 15px 30px;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.menu-buttons button:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.back-btn {
+    border-color: var(--neon-pink) !important;
+    color: var(--neon-pink) !important;
+}
+
+.back-btn:hover {
+    background: var(--neon-pink) !important;
+    color: black !important;
+    box-shadow: 0 0 20px var(--neon-pink) !important;
+}
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+#fps-counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--neon-green);
+    font-family: monospace;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 5px;
+    z-index: 300;
+}
+
+#upgrade-screen, #game-over, #news-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(5, 5, 20, 0.95);
+    border: 2px solid var(--neon-pink);
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 0 30px var(--neon-pink);
+    z-index: 100;
+}
+
+#news-popup {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 50px var(--neon-red);
+    width: 600px;
+    max-width: 80vw;
+    background: rgba(10, 0, 0, 0.98);
+}
+
+#news-popup h2 {
+    color: var(--neon-red);
+    text-shadow: 0 0 20px var(--neon-red);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+}
+
+#news-popup p {
+    font-size: 1.4rem;
+    margin: 30px 0;
+    line-height: 1.6;
+    color: #ffcccc;
+}
+
+#news-popup button {
+    padding: 15px 50px;
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    color: var(--neon-red);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+
+#news-popup button:hover {
+    background: var(--neon-red);
+    color: white;
+    box-shadow: 0 0 20px var(--neon-red);
+}
+
+#world-map {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 50px var(--neon-pink);
+}
+
+#global-stats {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    margin: 20px 0;
+    text-shadow: 0 0 10px var(--neon-blue);
+}
+
+#districts-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.district-card {
+    border: 1px solid var(--neon-blue);
+    padding: 15px;
+    background: rgba(0, 242, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: between;
+}
+
+.district-card:hover {
+    background: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.district-card.selected {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+    background: rgba(255, 0, 234, 0.1);
+}
+
+.district-card.locked {
+    border-color: var(--neon-red);
+    background: rgba(255, 0, 51, 0.1);
+}
+
+.district-card h3 {
+    margin: 0 0 10px 0;
+    color: var(--neon-blue);
+}
+
+.district-card .stat-line {
+    font-size: 0.8rem;
+    margin: 3px 0;
+}
+
+.restore-btn {
+    margin-top: 10px;
+    padding: 5px;
+    background: var(--neon-red);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.restore-btn:hover {
+    background: #ff4444;
+}
+
+#red-button-container {
+    margin: 20px 0;
+}
+
+#red-button {
+    background: var(--neon-red);
+    color: white;
+    font-size: 2.5rem;
+    padding: 20px 50px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 5px;
+    animation: pulse-red 1s infinite alternate;
+    box-shadow: 0 0 50px var(--neon-red);
+}
+
+@keyframes pulse-red {
+    from { transform: scale(1); box-shadow: 0 0 20px var(--neon-red); }
+    to { transform: scale(1.05); box-shadow: 0 0 60px var(--neon-red); }
+}
+
+h1, h2 {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
+
+#upgrade-choices {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.upgrade-card {
+    width: 200px;
+    padding: 20px;
+    border: 1px solid var(--neon-blue);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.upgrade-card:hover {
+    transform: scale(1.05);
+    background: rgba(0, 242, 255, 0.1);
+}

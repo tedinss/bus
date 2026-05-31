@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Cartel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- Platform Selection -->
+        <div id="platform-menu" class="menu-overlay">
+            <h1>SIGNAL CARTEL</h1>
+            <p>SELECT PLATFORM</p>
+            <div class="menu-buttons">
+                <button id="platform-pc">PC</button>
+                <button id="platform-phone">PHONE</button>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu-overlay hidden">
+            <h1>SIGNAL CARTEL</h1>
+            <div class="menu-buttons">
+                <button id="main-play">PLAY</button>
+                <button id="main-options">OPTIONS</button>
+            </div>
+        </div>
+
+        <!-- Play Menu -->
+        <div id="play-menu" class="menu-overlay hidden">
+            <h2>SELECT MODE</h2>
+            <div class="menu-buttons">
+                <button id="play-normal">NORMAL MODE</button>
+                <button id="play-hard">HARD MODE</button>
+                <button id="play-destruction">DESTRUCTION MODE</button>
+                <button id="play-sandbox">SANDBOX</button>
+                <button id="play-back" class="back-btn">BACK</button>
+            </div>
+        </div>
+
+        <!-- World Map -->
+        <div id="world-map" class="menu-overlay hidden">
+            <h1 id="world-map-title">NETWORK CONQUEST</h1>
+            <div id="global-stats">
+                WORLD NET-FLOW CONTROL: <span id="global-control">0</span>%
+            </div>
+            <div id="districts-container">
+                <!-- Districts will be injected here -->
+            </div>
+            <div id="red-button-container" class="hidden">
+                <button id="world-map-cascade">INITIATE FINAL CASCADE</button>
+            </div>
+            <div class="menu-buttons">
+                <button id="world-map-enter">ENTER DISTRICT</button>
+            </div>
+        </div>
+
+        <!-- Options Menu -->
+        <div id="options-menu" class="menu-overlay hidden">
+            <h2>OPTIONS</h2>
+            <div class="option-row">
+                <label>SFX:</label>
+                <input type="checkbox" id="sfx-toggle" checked>
+            </div>
+            <div class="option-row">
+                <label>FPS COUNTER:</label>
+                <input type="checkbox" id="fps-toggle">
+            </div>
+            <div class="option-row">
+                <label>FPS LIMIT (<span id="fps-limit-val">OFF</span>):</label>
+                <input type="range" id="fps-limit" min="15" max="144" value="144" step="1">
+            </div>
+            <button id="options-back" class="back-btn">BACK</button>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="menu-overlay hidden">
+            <h2>PAUSED</h2>
+            <div class="menu-buttons">
+                <button id="pause-resume">RESUME</button>
+                <button id="pause-options">OPTIONS</button>
+                <button id="pause-quit">QUIT TO MENU</button>
+            </div>
+        </div>
+
+        <div id="ui-overlay" class="hidden">
+            <div id="fps-counter" class="hidden">FPS: 0</div>
+            <div id="hud">
+                <div class="stat">CREDITS: <span id="credits">0</span></div>
+                <div class="stat">DETECTION: <span id="detection">0</span>%</div>
+                <div class="stat">WAVE: <span id="wave">1</span></div>
+                <button id="hud-map-btn" class="hidden">MAP</button>
+                <button id="hud-menu-btn">MENU</button>
+            </div>
+            <div id="news-ticker">
+                <div id="news-label">NET-FEED:</div>
+                <div id="news-content">INITIALIZING ENCRYPTED CONNECTION...</div>
+            </div>
+            <div id="build-menu">
+                <!-- Build buttons will be injected here -->
+            </div>
+        </div>
+        <div id="upgrade-screen" class="hidden">
+            <h2>NETWORK UPGRADE</h2>
+            <div id="upgrade-choices"></div>
+        </div>
+        <div id="news-popup" class="hidden">
+            <h2 id="news-popup-header">BREAKING NEWS</h2>
+            <p id="news-popup-content"></p>
+            <button id="news-ack-btn">ACKNOWLEDGE</button>
+        </div>
+        <div id="game-over" class="hidden">
+            <h1>CONNECTION LOST</h1>
+            <p>The cartel has been purged from the network.</p>
+            <div class="menu-buttons">
+                <button id="game-over-replay">WATCH TIMELAPSE</button>
+                <button id="game-over-reconnect">RECONNECT</button>
+            </div>
+        </div>
+        <div id="replay-overlay" class="hidden">
+            <h2>NETWORK EVOLUTION</h2>
+            <canvas id="replay-canvas"></canvas>
+            <div id="replay-controls">
+                <button id="replay-close-btn">CLOSE</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/engine/renderer.js"></script>
+    <script src="js/engine/input.js"></script>
+    <script src="js/engine/grid.js"></script>
+    <script src="js/logic/node.js"></script>
+    <script src="js/logic/signal.js"></script>
+    <script src="js/logic/economy.js"></script>
+    <script src="js/logic/chaos.js"></script>
+    <script src="js/logic/replay.js"></script>
+    <script src="js/ui/hud.js"></script>
+    <script src="js/ui/news.js"></script>
+    <script src="js/logic/district.js"></script>
+    <script src="js/ui/world-map.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
